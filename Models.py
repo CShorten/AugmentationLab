@@ -7,19 +7,19 @@ resnet = ResNet152V2(weights=None, input_shape=input_shape)
 def standard_model(x_train):
   normalization_layer = keras.Sequential(
     [
-      layers.experimental.preprocessing.Normalization(),
+      keras.layers.experimental.preprocessing.Normalization(),
     ],
     name="normalization",
   )
   normalization_layer.layers[0].adapt(x_train)
   
-  inputs = layers.Input(shape=input_shape)
+  inputs = keras.layers.Input(shape=input_shape)
   normalized = normalization_layer(inputs)
   resnet_outputs = ResNet152V2(include_top=False, weights=None)(normalized)
-  flattened = layers.Flatten()(resnet_outputs)
-  dense_1 = layers.Dense(512, activation="relu")(flattened)
-  dense_2 = layers.Dense(512, activation="relu")(dense_1)
-  outputs = layers.Dense(10, activation="softmax")(dense_2)
+  flattened = keras.layers.Flatten()(resnet_outputs)
+  dense_1 = keras.layers.Dense(512, activation="relu")(flattened)
+  dense_2 = keras.layers.Dense(512, activation="relu")(dense_1)
+  outputs = keras.layers.Dense(10, activation="softmax")(dense_2)
   model = keras.Model(inputs=inputs, outputs=outputs)
   return model
 
