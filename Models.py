@@ -1,3 +1,5 @@
+import keras
+import numpy as np
 input_shape = (32,32,3)
 from tensorflow.keras.applications import ResNet152V2
 resnet = ResNet152V2(weights=None, input_shape=input_shape)
