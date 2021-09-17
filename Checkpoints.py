@@ -16,15 +16,15 @@ def get_model_results(model, epoch, training_aug, eval_aug_list,
   print("evaluating...")
   new_results_row = []
   new_results_row.append(epoch)
-  new_results.append(training_aug)
+  new_results_row.append(training_aug)
   new_results_row.append(model.evaluate(x_train, y_train)[1])
   new_results_row.append(model.evaluate(x_test, y_test)[1])
   
   for aug in eval_aug_list:
     aug_test = aug(images=x_test)
-    new_results.append(model.evaluate(aug_test, y_test)[1])
+    new_results_row.append(model.evaluate(aug_test, y_test)[1])
   
-  return new_results
+  return new_results_row
 
 def save_file(master_file, file_name):
   with open(file_name, mode='w') as data_file:
