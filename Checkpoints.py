@@ -1,5 +1,5 @@
 # Take the master file as an argument and update it with the latest results
-def create_file_header(master_file, file_name,  eval_aug_list):
+def create_file_header(eval_aug_list):
   headings_row = []
   headings_row.append("Epoch")
   headings_row.append("Training Aug")
@@ -7,12 +7,12 @@ def create_file_header(master_file, file_name,  eval_aug_list):
   headings_row.append("Original Test Acc.")
   for aug in eval_aug_list:
     headings_row.append(aug)
+  return headings_row
 
   
 # add aug training strategy
 def get_model_results(model, epoch, training_aug, eval_aug_list,
-                      x_train, y_train, x_test, y_test,
-                      master_file):
+                      x_train, y_train, x_test, y_test):
   print("evaluating...")
   new_results_row = []
   new_results_row.append(epoch)
@@ -24,6 +24,7 @@ def get_model_results(model, epoch, training_aug, eval_aug_list,
     aug_test = aug(images=x_test)
     new_results.append(model.evaluate(aug_test, y_test)[1])
   
+  return new_results
 
 def save_file(master_file, file_name):
   with open(file_name, mode='w') as data_file:
