@@ -27,6 +27,7 @@ def get_model_results(model, epoch, training_aug, eval_aug_list,
   return new_results_row
 
 def save_file(master_file, file_name):
+  import csv
   with open(file_name, mode='w') as data_file:
     data_writer = csv.writer(data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     for row in master_file:
