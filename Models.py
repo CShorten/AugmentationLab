@@ -24,6 +24,15 @@ def standard_model(x_train):
   model = keras.Model(inputs=inputs, outputs=outputs)
   return model
 
+def compile_model(model, lr=0.001):
+  model.compile(
+    optimizer=tf.keras.optimizers.Adam(learning_rate=lr),
+    loss = keras.losses.CategoricalCrossentropy(from_logits=False),
+    metrics = [
+      keras.metrics.CategoricalAccuracy(name="accuracy"),
+    ],
+  )
+
 class Aug_Multiplicity_Model(keras.Model):
   def __init__(self, model):
     super(Aug_Multiplicity_Model, self).__init__()
