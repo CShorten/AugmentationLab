@@ -13,7 +13,7 @@ def static_switching(model, static_curriculum, static_curriculum_names,
     for j in range(5):
       for k in range(10):
         augmented_images = training_aug(images=x_train)
-        model.fit(augmented_images, y_trian, batch_size=256, epochs=1)
+        model.fit(augmented_images, y_train, batch_size=256, epochs=1)
       master_file.append(get_model_results(model,
                                            str((i+1)*(j+1)*10),
                                            training_aug_name, aug_list,
