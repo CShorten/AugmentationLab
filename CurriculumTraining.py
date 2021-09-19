@@ -18,5 +18,6 @@ def static_switching(model, static_curriculum, static_curriculum_names,
                                            str((i+1)*(j+1)*10),
                                            training_aug_name, aug_list,
                                            x_train, y_train, x_test, y_test)
+  # add saving the model
   save_file(master_file, save_file_name)
         
