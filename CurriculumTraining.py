@@ -47,7 +47,7 @@ def AugSwitch(model, outer_epochs, inner_epochs,
       model.fit(augmented_images, y_train, batch_size=256, epochs=1)
     inner_epoch_results = get_model_results(model,
                                             epoch_counter,
-                                            training_aug_name,
+                                            training_aug_name, aug_list,
                                             x_train, y_train, x_test, y_test)
     master_file.append(inner_epoch_results)
     for k in range(len(aug_list)):
@@ -55,7 +55,14 @@ def AugSwitch(model, outer_epochs, inner_epochs,
         last_step_accuracy_array[k] = inner_epoch_results[k+4]
       else:
         accuracy_difference_array[k] = abs(last_step_accuracy_array[k] - inner_epoch_results[k+4])
-        last_step_accuracy_array[i] = inner_epoch_results[k+4] # 4 to offset (epoch, name, org_train, org_test)
+        last_step_accuracy_array[k] = inner_epoch_results[k+4] # 4 to offset (epoch, name, org_train, org_test)
+    
+    # for testing, remove
+    print("Last Step Accuracy Array")
+    print(last_step_accuracy_array)
+    print("Accuracy Difference Array")
+    print(accuracy_difference_array)
+    
     epoch_counter += inner_epochs
   
   save_file(master_file, save_file_name)
