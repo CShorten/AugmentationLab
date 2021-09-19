@@ -9,6 +9,7 @@ def static_switching(model, static_curriculum, static_curriculum_names,
   for i in range(len(static_curriculum)):
     training_aug = static_curriculum[i]
     training_aug_name = static_curriculum_names[i]
+    print("===== " + training_aug_name + " =====")
     # todo, change these to function arguments
     for j in range(5):
       for k in range(10):
