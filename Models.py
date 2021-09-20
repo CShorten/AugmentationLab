@@ -173,6 +173,7 @@ def create_vit_classifier(x_train):
   return model
 
 def perceiver(x_train):
+  num_classes=10
   dropout_rate = 0.2
   image_size = 64  # We'll resize input images to this size.
   patch_size = 2  # Size of the patches to be extract from the input images.
