@@ -55,6 +55,7 @@ def compile_model(model, lr=0.001):
 # implementation from Khalid Salama, cite: https://keras.io/examples/vision/image_classification_with_vision_transformer/
 def create_vit_classifier(x_train):
   import tensorflow_addons as tfa # currently installing this in the main notebook            
+  input_shape = (32,32,3)
   image_size = 72
   patch_size = 6  # Size of the patches to be extract from the input images
   num_patches = (image_size // patch_size) ** 2
