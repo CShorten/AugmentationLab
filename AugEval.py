@@ -20,8 +20,8 @@ def model_list_aug_results(model_list, model_names,
     test_results.append(model.evaluate(x_test, y_test))[1]
     for aug in aug_list:
       aug_train = aug(images=x_train)
-      train_results.append(model.evaluate(aug_train, y_train)[1]
+      train_results.append(model.evaluate(aug_train, y_train))[1]
       aug_test = aug(images=x_test)
-      test_results.append(model.evaluate(aug_test, y_test)[1]
+      test_results.append(model.evaluate(aug_test, y_test))[1]
   return train_results, test_results
   
