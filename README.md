@@ -9,4 +9,4 @@ Augmentation Zoo is a collection of tools to test ideas in Data Augmentation.<br
 Publications using Augmentation Zoo: <br />
 <b>Investigating the Generalization of Image Classifiers with Augmented Test Sets</b><br />
 Connor Shorten and Tagh M. Khoshgoftaar, in ICTAI 2021.
-https://github.com/CShorten/AugmentationZoo/blob/main/Notebooks/Investigating-Generalization.ipynb
+<a href = "https://github.com/CShorten/AugmentationZoo/blob/main/Notebooks/Investigating-Generalization.ipynb">Notebook Link</a>
