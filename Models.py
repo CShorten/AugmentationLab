@@ -5,7 +5,7 @@ import tensorflow as tf
 
 from tensorflow.keras.applications import ResNet152V2, ResNet50
 
-def standard_model(x_train, input_shape=(32,32,3):
+def standard_model(x_train, input_shape=(32,32,3)):
   normalization_layer = keras.Sequential(
     [
       layers.experimental.preprocessing.Normalization(),
