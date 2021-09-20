@@ -1,4 +1,4 @@
-def get_data():
+def get_cifar10_data():
   from tensorflow import keras
   (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
   y_train = keras.utils.to_categorical(y_train, 10)
