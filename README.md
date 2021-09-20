@@ -7,6 +7,6 @@ Augmentation Zoo currently includes:
   <li> Evaluation on Test Sets constructed with Augmentations </li>
 </ul>
 
-Publications using Augmentation Zoo: <br /><br />
+Publications using Augmentation Zoo: <br />
 <b>Investigating the Generalization of Image Classifiers with Augmented Test Sets</b><br />
 Connor Shorten and Tagh M. Khoshgoftaar, in ICTAI 2021.
