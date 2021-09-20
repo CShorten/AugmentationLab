@@ -106,7 +106,14 @@ def create_vit_classifier(x_train):
           positions = tf.range(start=0, limit=self.num_patches, delta=1)
           encoded = self.projection(patch) + self.position_embedding(positions)
           return encoded
-     
+    
+    def get_config(self):
+      config = super().get_config().copy()
+      config.update({
+          'patch_size': self.patch_size,
+      })
+      return config
+    
   inputs = layers.Input(shape=input_shape)
                    
   data_augmentation = keras.Sequential(
