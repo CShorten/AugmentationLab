@@ -54,7 +54,7 @@ def compile_model(model, lr=0.001):
 # Vision Transformer
 # implementation from Khalid Salama, cite: https://keras.io/examples/vision/image_classification_with_vision_transformer/
 def create_vit_classifier(x_train):
-  import tensorflow_addons as tfa            
+  import tensorflow_addons as tfa # currently installing this in the main notebook            
   patch_size = 6  # Size of the patches to be extract from the input images
   num_patches = (image_size // patch_size) ** 2
   projection_dim = 64
@@ -65,6 +65,7 @@ def create_vit_classifier(x_train):
   ]  # Size of the transformer layers
   transformer_layers = 8
   mlp_head_units = [2048, 1024]  # Size of the dense layers of the final classifier
+  image_size = 72
   
   def mlp(x, hidden_units, dropout_rate):
     for units in hidden_units:
