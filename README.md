@@ -2,7 +2,7 @@
 Augmentation Zoo is a collection of tools to test ideas in Data Augmentation.<br />
 Augmentation Zoo currently includes:
 <ul>
-  <li> Training Strategies: e.g. Consistency Losses, Negative Data Augmentation </li>
+  <li> Training Strategies e.g. Consistency Losses, Negative Data Augmentation </li>
   <li> Curriculum Training </li>
   <li> Evaluation on Test Sets constructed with Augmentations </li>
 </ul>
