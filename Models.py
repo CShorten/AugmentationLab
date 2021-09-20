@@ -34,7 +34,7 @@ def ResNet50_with_upsampling(x_train, input_shape=(32,32,3)):
   normalization_layer.layers[0].adapt(x_train)
   inputs = layers.Input(shape=input_shape)
   normalized = normalization_layer(inputs)
-  resnet_outputs = ResNet50(weights=None, include_top=False, input_shape=(72,72,3))
+  resnet_outputs = ResNet50(weights=None, include_top=False, input_shape=(72,72,3))(normalized)
   flattened = layers.Flatten()(resnet_outputs)
   dense_1 = layers.Dense(512, activation="relu")(flattened)
   dense_2 = layers.Dense(512, activation="relu")(dense_1)
