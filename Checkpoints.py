@@ -1,3 +1,4 @@
+import numpy as np
 # Take the master file as an argument and update it with the latest results
 def create_file_header(eval_aug_list):
   headings_row = []
