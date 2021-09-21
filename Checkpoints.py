@@ -41,7 +41,7 @@ def get_aug_results(epoch, model, model_paths, aug_name_list,
   new_results_row = []
   new_results_row.append(epoch)
   for model_path in model_paths:
-    model.load_weights("model_paths")
+    model.load_weights(model_path)
     # maybe want to see the trend in training accuracy as well
     new_results_row.append(model.evaluate(x_test, y_test)[1])
   winning_aug_idx = np.argmax(new_results_row[1:])
