@@ -35,16 +35,18 @@ def create_task_groupings_header(aug_name_list):
   headings_row.append("Max Test Accuracy")
   return headings_row
 
-def get_aug_results(epoch, models,
+def get_aug_results(epoch, model, model_paths, aug_name_list
                     x_test, y_test):
   print("evaluating...")
   new_results_row = []
   new_results_row.append(epoch)
-  for model in models:
+  for model_path in model_paths:
+    model.load_weights("model_paths")
     # maybe want to see the trend in training accuracy as well
     new_results_row.append(model.evaluate(x_test, y_test)[1])
-  new_results_row.append(np.argmax(new_results_row[1:]))
-  return new_results_row
+  next_step_aug_idx = np.argmax(new_results_row[1:])
+  new_results_row.append(aug_name_list[next_step_aug_idx])
+  return new_results_row, next_step_aug_idx
 
 def save_file(master_file, file_name):
   import csv
