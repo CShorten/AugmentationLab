@@ -72,10 +72,10 @@ def Task_Groupings(model, epochs,
                    save_file_name):
   master_file = []
   master_file.append(create_task_groupings_header(aug_names))
-  next_step_aug_idx = 0
+  winning_aug_idx = 0
   for i in range(epochs):
-    training_aug = aug_list[next_step_aug_idx]
-    training_aug_name = aug_names[next_step_aug_idx]
+    training_aug = aug_list[winning_aug_idx]
+    training_aug_name = aug_names[winning_aug_idx]
     print("===== Augmentation: " + training_aug_name + " =====")
     model.save_weights("previous-step-weights.h5")
     model_paths = []
@@ -88,9 +88,10 @@ def Task_Groupings(model, epochs,
       model_save_path = aug_names[j] + "-candidate.h5"
       model.save_weights(model_save_path)
       model_paths.append(model_save_path)
-    inner_epoch_results, next_step_aug_idx = get_aug_results(i, model,
+    inner_epoch_results, winning_aug_idx = get_aug_results(i, model,
                                                          model_paths, aug_name_list,
                                                          x_test, y_test)
+    model.load_weights(model_save_path[winning_aug_idx])
     
   
   save_file(master_file, save_file_name)
