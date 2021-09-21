@@ -1,4 +1,6 @@
-from Checkpoints import create_file_header, get_model_results, save_file # maybe create a utils file
+from Checkpoints import create_file_header, create_task_groupings_header,
+                        get_model_results, get_aug_results, 
+                        save_file # maybe create a utils file
 import numpy as np
 
 def static_switching(model, static_curriculum, static_curriculum_names,
@@ -67,11 +69,11 @@ Start with ø[t] and train it to candidate ø'[t+1] with each augmentation.
 Select the ø'[t+1] for ø[t+1] with the highest original test accuracy.
 '''
 def Task_Groupings(model, epochs,
-                   aug_list, aug_names
+                   aug_list, aug_names,
                    x_train, y_train, x_test, y_test,
                    save_file_name):
   master_file = []
-  master_file.append(create_file_header(aug_names))
+  master_file.append(create_task_groupings_header(aug_names))
   next_step_aug_idx = 0
   for i in range(epochs):
     training_aug = aug_list[next_step_aug_idx]
