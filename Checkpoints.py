@@ -44,9 +44,9 @@ def get_aug_results(epoch, model, model_paths, aug_name_list,
     model.load_weights("model_paths")
     # maybe want to see the trend in training accuracy as well
     new_results_row.append(model.evaluate(x_test, y_test)[1])
-  next_step_aug_idx = np.argmax(new_results_row[1:])
-  new_results_row.append(aug_name_list[next_step_aug_idx])
-  return new_results_row, next_step_aug_idx
+  winning_aug_idx = np.argmax(new_results_row[1:])
+  new_results_row.append(aug_name_list[winning_aug_idx])
+  return new_results_row, winning_aug_idx
 
 def save_file(master_file, file_name):
   import csv
