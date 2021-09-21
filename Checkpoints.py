@@ -35,7 +35,7 @@ def create_task_groupings_header(aug_name_list):
   headings_row.append("Max Test Accuracy")
   return headings_row
 
-def get_aug_results(epoch, model, model_paths, aug_name_list
+def get_aug_results(epoch, model, model_paths, aug_name_list,
                     x_test, y_test):
   print("evaluating...")
   new_results_row = []
