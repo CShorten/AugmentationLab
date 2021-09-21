@@ -91,11 +91,6 @@ def Task_Groupings(model, epochs,
     inner_epoch_results, winning_aug_idx = get_aug_results(i, model,
                                                          model_paths, aug_name_list,
                                                          x_test, y_test)
-    print(model_paths[winning_aug_idx])
-    print("\n")
-    print(winning_aug_idx)
-    print("\n")
-    print(model_paths)
     model.load_weights(model_paths[winning_aug_idx])
     
   
