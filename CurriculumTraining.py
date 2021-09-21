@@ -1,6 +1,4 @@
-from Checkpoints import create_file_header, create_task_groupings_header,
-                        get_model_results, get_aug_results, 
-                        save_file # maybe create a utils file
+from Checkpoints import create_file_header, create_task_groupings_header, get_model_results, get_aug_results, save_file
 import numpy as np
 
 def static_switching(model, static_curriculum, static_curriculum_names,
