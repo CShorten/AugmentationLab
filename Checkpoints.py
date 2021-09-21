@@ -26,6 +26,26 @@ def get_model_results(model, epoch, training_aug, eval_aug_list,
   
   return new_results_row
 
+# reporting for Task Groupings
+def create_task_groupings_header(aug_name_list):
+  headings_row = []
+  headings_row.append("Epoch")
+  for aug_name in aug_name_list:
+    headings_row.append(aug_name)
+  headings_row.append("Max Test Accuracy")
+  return headings_row
+
+def get_aug_results(epoch, models,
+                    x_test, y_test):
+  print("evaluating...")
+  new_results_row = []
+  new_results_row.append(epoch)
+  for model in models:
+    # maybe want to see the trend in training accuracy as well
+    new_results_row.append(model.evaluate(x_test, y_test)[1])
+  new_results_row.append(np.argmax(new_results_row[1:]))
+  return new_results_row
+
 def save_file(master_file, file_name):
   import csv
   with open(file_name, mode='w') as data_file:
