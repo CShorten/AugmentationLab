@@ -67,15 +67,15 @@ Start with ø[t] and train it to candidate ø'[t+1] with each augmentation.
 Select the ø'[t+1] for ø[t+1] with the highest original test accuracy.
 '''
 def Task_Groupings(model, epochs,
-                   aug_list, aug_names,
+                   aug_list, aug_name_list,
                    x_train, y_train, x_test, y_test,
                    save_file_name):
   master_file = []
-  master_file.append(create_task_groupings_header(aug_names))
+  master_file.append(create_task_groupings_header(aug_name_list))
   winning_aug_idx = 0
   for i in range(epochs):
     training_aug = aug_list[winning_aug_idx]
-    training_aug_name = aug_names[winning_aug_idx]
+    training_aug_name = aug_name_list[winning_aug_idx]
     print("===== Augmentation: " + training_aug_name + " =====")
     model.save_weights("previous-step-weights.h5")
     model_paths = []
@@ -85,7 +85,7 @@ def Task_Groupings(model, epochs,
       training_aug = aug_list[j]
       augmented_images = training_aug(images=x_train)
       model.fit(augmented_images, y_train, batch_size=256, epochs=1)
-      model_save_path = aug_names[j] + "-candidate.h5"
+      model_save_path = aug_name_list[j] + "-candidate.h5"
       model.save_weights(model_save_path)
       model_paths.append(model_save_path)
     inner_epoch_results, winning_aug_idx = get_aug_results(i, model,
