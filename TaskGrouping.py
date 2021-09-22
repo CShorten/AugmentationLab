@@ -4,7 +4,7 @@ The idea of Task Grouping is to use a lookahead comparison of the parameters upd
 Start with ø[t] and train it to candidate ø'[t+1] with each augmentation.
 Select the ø'[t+1] for ø[t+1] with the highest original test accuracy.
 '''
-def Step_Lookahead(model, epochs,
+def Lookahead_Training(model, epochs,
                    aug_list, aug_name_list,
                    x_train, y_train, x_test, y_test,
                    save_file_name):
