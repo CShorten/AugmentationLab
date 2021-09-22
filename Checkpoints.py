@@ -28,7 +28,7 @@ def get_model_results(model, epoch, training_aug, eval_aug_list,
   return new_results_row
 
 # reporting for Task Groupings
-def create_task_groupings_header(aug_name_list):
+def create_lookahead_header(aug_name_list):
   headings_row = []
   headings_row.append("Epoch")
   for aug_name in aug_name_list:
@@ -36,7 +36,7 @@ def create_task_groupings_header(aug_name_list):
   headings_row.append("Max Test Accuracy")
   return headings_row
 
-def get_aug_results(epoch, model, model_paths, aug_name_list,
+def get_lookahead_results(epoch, model, model_paths, aug_name_list,
                     x_test, y_test):
   print("evaluating...")
   new_results_row = []
@@ -48,6 +48,39 @@ def get_aug_results(epoch, model, model_paths, aug_name_list,
   winning_aug_idx = np.argmax(new_results_row[1:])
   new_results_row.append(aug_name_list[winning_aug_idx])
   return new_results_row, winning_aug_idx
+
+def create_grouping_header(aug_name_list):
+  headings_row = []
+  headings_row.append(" ") # Offset for the matrix visualization
+  for aug_name in aug_name_list:
+    headings_row.append(aug_name)
+  return headings_row
+
+def get_grouping_results(model, model_init_path
+                         training_augs, aug_name_list,
+                         x_train, y_train, x_test, y_test):
+  results_file = []
+  headings_row = []
+  headings_row.append(" ") # Offset for the matrix visualization
+  for aug_name in aug_name_list:
+    headings_row.append(aug_name)
+  results_file.append(headings_row)
+  results_matrix = []
+  for i, aug in enumerate(training_augs):
+    new_results_row = []
+    new_matrix_row = []
+    model.load_weights(model_init_path)
+    augmented_images = aug(images=x_train)
+    new_results_row.append(aug_name_list[i])
+    for test_aug in training_augs:
+      aug_test = test_aug(images=x_test)
+      result = model.evaluate(aug_test, y_test)[1]
+      results_matrix.append(result)
+      new_matrix_row.append(result)
+    results_file.append(new_results_row)
+    results_matrix.append(new_matrix_row)
+    
+  return results_file, results_matrix
 
 def save_file(master_file, file_name):
   import csv
