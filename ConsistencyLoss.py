@@ -33,10 +33,12 @@ def consistency_loss_model(x_train):
 
 # Second class so you can pass in the intermediate models
 # Need to add the RandAugment, y into this
-class Deep_Consistency_Model(keras.Model, intermediate_layer_models):
-  def __init__(self, model):
+class Deep_Consistency_Model(keras.Model):
+  def __init__(self, model, intermediate_layer_models):
     super(Consistency_Model, self).__init__()
     self.model = model
+    self.intermediate_layer_models = intermediate_layer_models
+    self.num_rep_layers = len(self.intermediate_layer_models)
 
   def train_step(self, data):
     [org_data, aug_pair], y = data
@@ -51,9 +53,9 @@ class Deep_Consistency_Model(keras.Model, intermediate_layer_models):
       # Consistency Losses
       loss += self.compiled_loss(y_pred, aug_pred, regularization_losses=self.losses)
 
-      for i in range(intermediate_layer_models):
-        org_med = intermediate_layer_models[i].predict(org_data)
-        aug_med = intermediate_layer_models[i].predict(aug_data)
+      for i in range(num_rep_layers):
+        org_med = self.intermediate_layer_models[i].predict(org_data)
+        aug_med = self.intermediate_layer_models[i].predict(aug_data)
         loss += self.compiled_loss(org_med, aug_med, regularization_losses=self.losses)
         
     trainable_vars = self.trainable_variables
