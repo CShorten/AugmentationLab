@@ -87,8 +87,6 @@ def get_groupings(model, model_init_path, performance_save_path, difference_save
       aug_test = test_aug(images=x_test)
       result = model.evaluate(aug_test, y_test)[1]
       difference = result - original_accuracies[i]
-      results_matrix.append(result)
-      difference_matrix.append(difference)
       new_performance_file_row.append(result)
       new_performance_matrix_row.append(result)
       new_difference_file_row.append(difference)
