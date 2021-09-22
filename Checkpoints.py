@@ -64,6 +64,7 @@ def get_groupings(model, model_init_path, file_name,
     new_matrix_row = []
     model.load_weights(model_init_path)
     augmented_images = aug(images=x_train)
+    model.fit(augmented_images, y_train, batch_size=256, epochs=1)
     new_results_row.append(aug_name_list[i])
     for test_aug in training_augs:
       aug_test = test_aug(images=x_test)
