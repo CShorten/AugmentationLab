@@ -39,10 +39,10 @@ def ResNet152V2_base(x_train, input_shape=(32,32,3)):
   return model
 
 def specialized_head(base_model):
-  dense_1 = layers.Dense(512, activation="relu")(base_model.outputs)
+  dense_1 = layers.Dense(512, activation="relu")(base_model)
   dense_2 = layers.Dense(512, activation="relu")(dense_1)
   outputs = layers.Dense(10, activation="softmax")(dense_2)
-  model = keras.Model(inputs = base_model.inputs, outputs=outputs)
+  model = keras.Model(inputs = base_model, outputs=outputs)
   return model
 
 def ResNet50_with_upsampling(x_train, input_shape=(32,32,3)):
