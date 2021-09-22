@@ -54,7 +54,7 @@ class Deep_Consistency_Model(keras.Model):
       # Consistency Losses
       loss += self.compiled_loss(y_pred, aug_pred, regularization_losses=self.losses)
 
-      for i in range(num_rep_layers):
+      for i in range(self.num_rep_layers):
         org_med = self.intermediate_layer_models[i].predict(org_data)
         aug_med = self.intermediate_layer_models[i].predict(aug_data)
         loss += self.compiled_loss(org_med, aug_med, regularization_losses=self.losses)
