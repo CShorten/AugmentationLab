@@ -56,7 +56,7 @@ class Deep_Consistency_Model(keras.Model):
 
       for i in range(self.num_rep_layers):
         org_med = self.intermediate_layer_models[i](org_data, training=True)
-        aug_med = self.intermediate_layer_models[i](aug_data, training=True)
+        aug_med = self.intermediate_layer_models[i](aug_pair, training=True)
         loss += self.compiled_loss(org_med, aug_med, regularization_losses=self.losses)
         
     trainable_vars = self.trainable_variables
