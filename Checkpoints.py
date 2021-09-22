@@ -49,14 +49,7 @@ def get_lookahead_results(epoch, model, model_paths, aug_name_list,
   new_results_row.append(aug_name_list[winning_aug_idx])
   return new_results_row, winning_aug_idx
 
-def create_grouping_header(aug_name_list):
-  headings_row = []
-  headings_row.append(" ") # Offset for the matrix visualization
-  for aug_name in aug_name_list:
-    headings_row.append(aug_name)
-  return headings_row
-
-def get_grouping_results(model, model_init_path
+def get_groupings(model, model_init_path
                          training_augs, aug_name_list,
                          x_train, y_train, x_test, y_test):
   results_file = []
