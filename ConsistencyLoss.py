@@ -35,7 +35,7 @@ def consistency_loss_model(x_train):
 # Need to add the RandAugment, y into this
 class Deep_Consistency_Model(keras.Model):
   def __init__(self, model, intermediate_layer_models):
-    super(Consistency_Model, self).__init__()
+    super(Deep_Consistency_Model, self).__init__()
     self.model = model
     self.intermediate_layer_models = intermediate_layer_models
     self.num_rep_layers = len(self.intermediate_layer_models)
