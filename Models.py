@@ -76,9 +76,9 @@ def compile_model(model, lr=0.001):
     ],
   )
 
-def compile_models(models, lr_list):
+def compile_models(models):
   for i, model in enumerate(models):
-    compile_model(model, lr=lr_list[i])
+    compile_model(model)
 
 # Vision Transformer
 # implementation from Khalid Salama, cite: https://keras.io/examples/vision/image_classification_with_vision_transformer/
