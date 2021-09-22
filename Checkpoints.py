@@ -49,33 +49,59 @@ def get_lookahead_results(epoch, model, model_paths, aug_name_list,
   new_results_row.append(aug_name_list[winning_aug_idx])
   return new_results_row, winning_aug_idx
 
-def get_groupings(model, model_init_path, file_name,
+# Need to reorganize this so the file is created from the raw matrix scores
+def get_groupings(model, model_init_path, performance_save_path, difference_save_path,
                          training_augs, aug_name_list,
                          x_train, y_train, x_test, y_test):
-  results_file = []
+  performance_file = []
+  difference_file = []
+  
   headings_row = []
   headings_row.append(" ") # Offset for the matrix visualization
   for aug_name in aug_name_list:
     headings_row.append(aug_name)
   results_file.append(headings_row)
-  results_matrix = []
+  difference_file.append(headings_row)
+  
+  performance_matrix = []
+  difference_matrix = []
+  
+  original_accuracies = []
+  model.load_weights(model_init_path)
+  for aug in training_augs:
+    org_test_score = aug(images=x_test)
+    original_accuracies.append(model.evaluate(org_test_score, y_test)[1])
+  
   for i, aug in enumerate(training_augs):
-    new_results_row = []
-    new_matrix_row = []
+    new_performance_file_row = []
+    new_difference_file_row = []
+    new_performance_matrix_row = []
+    new_difference_matrix_row = []
     model.load_weights(model_init_path)
     augmented_images = aug(images=x_train)
     model.fit(augmented_images, y_train, batch_size=256, epochs=1)
-    new_results_row.append(aug_name_list[i])
-    for test_aug in training_augs:
+    
+    new_performance_file_row.append(aug_name_list[i])
+    new_difference_file_row.append(aug_name_list[i]) # offset for visualization
+    for i, test_aug in enumerate(training_augs):
       aug_test = test_aug(images=x_test)
       result = model.evaluate(aug_test, y_test)[1]
+      difference = result - original_accuracies[i]
       results_matrix.append(result)
-      new_matrix_row.append(result)
-    results_file.append(new_results_row)
-    results_matrix.append(new_matrix_row)
+      difference_matrix.append(difference)
+      new_performance_file_row.append(result)
+      new_performance_matrix_row.append(result)
+      new_difference_file_row.append(difference)
+      new_difference_matrix_row.append(difference)
+      
+    performance_file.append(new_performance_file_row)
+    performance_matrix.append(new_performance_matrix_row)
+    difference_file.append(new_difference_file_row)
+    difference_matrix.append(new_difference_matrix_row)
   
-  save_file(results_file, file_name)
-  return results_matrix
+  save_file(difference_file, difference_save_path)
+  save_file(performance_file, performance_save_path)
+  return performance_matrix, difference_matrix
 
 def save_file(master_file, file_name):
   import csv
