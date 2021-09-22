@@ -23,7 +23,13 @@ def standard_model(x_train, input_shape=(32,32,3)):
   model = keras.Model(inputs=inputs, outputs=outputs)
   return model
 
-def ResNet152V2_base(x_train, input_shape=(32,32,3)):
+def create_specialization_head(base_output_layer):
+  dense_1 = layers.Dense(512, activation="relu")(base_output_layer)
+  dense_2 = layers.Dense(512, activation="relu")(dense_1)
+  outputs = layers.Dense(10, activation="softmax")(dense_2)
+  return outputs
+
+def ResNet152V2_base_head(x_train, num_specialized_heads, input_shape=(32,32,3)):
   normalization_layer = keras.Sequential(
     [
       layers.experimental.preprocessing.Normalization(),
@@ -35,15 +41,12 @@ def ResNet152V2_base(x_train, input_shape=(32,32,3)):
   normalized = normalization_layer(inputs)
   resnet_outputs = ResNet152V2(include_top=False, weights=None)(normalized)
   flattened = layers.Flatten()(resnet_outputs)
-  model = keras.Model(inputs=inputs, outputs=flattened)
-  return model
-
-def specialized_head(base_model):
-  dense_1 = layers.Dense(512, activation="relu")(base_model)
-  dense_2 = layers.Dense(512, activation="relu")(dense_1)
-  outputs = layers.Dense(10, activation="softmax")(dense_2)
-  model = keras.Model(inputs = base_model, outputs=outputs)
-  return model
+  models = []
+  for i in range(num_specialized_heads):
+    head = create_specialization_head(flattened)
+    model = keras.Model(inputs=inputs, outputs=head)
+    models.append(model)
+  return models
 
 def ResNet50_with_upsampling(x_train, input_shape=(32,32,3)):
   normalization_layer = keras.Sequential(
