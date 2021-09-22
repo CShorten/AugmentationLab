@@ -1,3 +1,5 @@
+import keras
+
 class Consistency_Model(keras.Model):
   def __init__(self, model):
     super(Consistency_Model, self).__init__()
