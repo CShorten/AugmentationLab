@@ -23,6 +23,28 @@ def standard_model(x_train, input_shape=(32,32,3)):
   model = keras.Model(inputs=inputs, outputs=outputs)
   return model
 
+def ResNet152V2_base(x_train, input_shape=(32,32,3)):
+  normalization_layer = keras.Sequential(
+    [
+      layers.experimental.preprocessing.Normalization(),
+    ],
+    name="normalization",
+  )
+  normalization_layer.layers[0].adapt(x_train)
+  inputs = layers.Input(shape=input_shape)
+  normalized = normalization_layer(inputs)
+  resnet_outputs = ResNet152V2(include_top=False, weights=None)(normalized)
+  flattened = layers.Flatten()(resnet_outputs)
+  model = keras.Model(inputs=inputs, outputs=flattened)
+  return model
+
+def specialized_head(base_model):
+  dense_1 = layers.Dense(512, activation="relu")(base_model.outputs)
+  dense_2 = layers.Dense(512, activation="relu")(dense_1)
+  outputs = layers.Dense(10, activation="softmax")(dense_2)
+  model = keras.Model(inputs = base_model.inputs, outputs=outputs)
+  return model
+
 def ResNet50_with_upsampling(x_train, input_shape=(32,32,3)):
   normalization_layer = keras.Sequential(
     [
@@ -50,6 +72,10 @@ def compile_model(model, lr=0.001):
       keras.metrics.CategoricalAccuracy(name="accuracy"),
     ],
   )
+
+def compile_models(models, lr_list):
+  for i, model in enumerate(models):
+    compile_model(model, lr=lr_list[i])
 
 # Vision Transformer
 # implementation from Khalid Salama, cite: https://keras.io/examples/vision/image_classification_with_vision_transformer/
