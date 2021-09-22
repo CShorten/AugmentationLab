@@ -49,7 +49,7 @@ def get_lookahead_results(epoch, model, model_paths, aug_name_list,
   new_results_row.append(aug_name_list[winning_aug_idx])
   return new_results_row, winning_aug_idx
 
-def get_groupings(model, model_init_path, file_name
+def get_groupings(model, model_init_path, file_name,
                          training_augs, aug_name_list,
                          x_train, y_train, x_test, y_test):
   results_file = []
