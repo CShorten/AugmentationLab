@@ -17,9 +17,9 @@ def standard_model(x_train, input_shape=(32,32,3)):
   normalized = normalization_layer(inputs)
   resnet_outputs = ResNet152V2(include_top=False, weights=None)(normalized)
   flattened = layers.Flatten()(resnet_outputs)
-  dense_1 = layers.Dense(512, activation="relu")(flattened)
-  dense_2 = layers.Dense(512, activation="relu")(dense_1)
-  outputs = layers.Dense(10, activation="softmax")(dense_2)
+  dense_1 = layers.Dense(512, activation="relu", name="dense1")(flattened)
+  dense_2 = layers.Dense(512, activation="relu", name="dense2")(dense_1)
+  outputs = layers.Dense(10, activation="softmax", name="output")(dense_2)
   model = keras.Model(inputs=inputs, outputs=outputs)
   return model
 
