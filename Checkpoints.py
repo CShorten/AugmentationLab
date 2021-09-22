@@ -60,7 +60,7 @@ def get_groupings(model, model_init_path, performance_save_path, difference_save
   headings_row.append(" ") # Offset for the matrix visualization
   for aug_name in aug_name_list:
     headings_row.append(aug_name)
-  results_file.append(headings_row)
+  performance_file.append(headings_row)
   difference_file.append(headings_row)
   
   performance_matrix = []
