@@ -1,4 +1,5 @@
 import keras
+import tensorflow as tf
 
 class Consistency_Model(keras.Model):
   def __init__(self, model):
