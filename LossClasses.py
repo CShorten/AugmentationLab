@@ -75,7 +75,7 @@ def consistency_loss_model(x_train):
 
 # Second class so you can pass in the intermediate models
 # Need to add the RandAugment, y into this
-class Consistency_Model(keras.Model, intermediate_layer_models):
+class Deep_Consistency_Model(keras.Model, intermediate_layer_models):
   def __init__(self, model):
     super(Consistency_Model, self).__init__()
     self.model = model
