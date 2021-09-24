@@ -6,7 +6,9 @@ Connor Shorten and Tagh M. Khoshgoftaar, in ICTAI 2021.
 <br /><br />
 AugmentationLab is a collection of tools to test ideas in Data Augmentation.<br />
 <ul>
-  <li> Training Strategies e.g. Consistency Losses, Negative Data Augmentation </li>
-  <li> Curriculum Training </li>
-  <li> Evaluation on Test Sets constructed with Augmentations </li>
+  <li> Datasets </li>
+  <li> DataLoaders </li>
+  <li> Models </li>
+  <li> Training Strategies </li>
+  <li> Evaluation </li>
 </ul>
