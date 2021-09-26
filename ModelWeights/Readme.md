@@ -1,4 +1,4 @@
-(Temporary, this will be removed in the future)
+Temporary, this will be removed in the future<br />
 Hopefully merged to HuggingFace Model Hub
 
 Directory for finding model weights
