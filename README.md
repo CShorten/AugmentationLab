@@ -7,20 +7,19 @@ Connor Shorten and Tagh M. Khoshgoftaar. In ICTAI 2021.
 <h4> High-Level API Overview 🧰 </h4>
 AugmentationLab is a collection of tools to test ideas in Data Augmentation.<br />
 <img width="558" alt="AugmentationLab-API" src="https://user-images.githubusercontent.com/25864937/135115606-ad2123d6-2fa3-4901-8974-0635a7a51752.png">
-<ul>
-  <li><ul> Datasets
+<h4> Datasets </h4>
+    <ul>
         <li> CIFAR-10 </li>
         <li> In Progress: WILDS </li>
         <li> In Progress: DomainNet </li>
     </ul>
-  </li>
-  <li><ul> Models
-        <li> ResNet50 </li>
-        <li> ResNet152V2 </li>
-        <li> Vision Transformer </li>
-        <li> Perceiver </li>
-    </ul>
-  </li>
+<h4> Models </h4>
+  <ul>
+      <li> ResNet50 </li>
+      <li> ResNet152V2 </li>
+      <li> Vision Transformer </li>
+      <li> Perceiver </li>
+  </ul>
 </ul>
     
   
