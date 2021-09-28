@@ -1,7 +1,7 @@
 # AugmentationLab 🧫
 <h4> Publications using AugmentationLab: 📜 </h4>
 <b>Investigating the Generalization of Image Classifiers with Augmented Test Sets</b><br />
-Connor Shorten and Tagh M. Khoshgoftaar, in ICTAI 2021.
+Connor Shorten and Tagh M. Khoshgoftaar. In ICTAI 2021.
 <a href = "https://github.com/CShorten/AugmentationZoo/blob/main/Notebooks/Investigating_Generalization.ipynb">Notebook Link</a>
 <br /><br />
 <h4> High-Level API Overview 🧰 </h4>
