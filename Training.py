@@ -9,4 +9,4 @@ def standard_training(model, meta_steps,
     print("===== Evaluation Step: " + str((i+1)*10) + " =====")
     for test_aug in testing_aug_list:
       augmented_test_data = test_aug(images=x_test)
-      model.evaluate(augmented_test_data, y_test, batch_size=256, epochs=1)               
+      model.evaluate(augmented_test_data, y_test)
