@@ -30,6 +30,7 @@ AugmentationLab is a collection of tools to test ideas in Data Augmentation.<br 
   <ul>
     <li> Standard Augmentation Training </li>
     <li> Consistency Loss </li>
+    <li> Knowledge Distillation </li>
     <li> Augmentation Multiplicity </li>
     <li> Negative Data Augmentation </li>
   </ul>
