@@ -79,8 +79,8 @@ def fixed_switching(aug_list, aug_name_list, outer_steps, inner_steps):
     aug = aug_list[j]
     for i in range(inner_steps):
       augmented_data = aug(images=x_train)
-    report.append(evaluation(aug_list, aug_name_list)
-  save_results(report, "FixedSwitching.csv") # extend to maybe use an acronym of the switches in the filename
+    report.append(evaluation(aug_list, aug_name_list))
+  save_results(report, "FixedSwitching.csv")
   print("Finished Training")
                     
 def AugSwitch(aug_list, aug_name_list, outer_steps, inner_steps):
