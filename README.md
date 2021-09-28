@@ -7,7 +7,7 @@ Connor Shorten and Tagh M. Khoshgoftaar. In ICTAI 2021.
 <h4> High-Level API Overview 🧰 </h4>
 AugmentationLab is a collection of tools to test ideas in Data Augmentation.<br />
 <img width="558" alt="AugmentationLab-API" src="https://user-images.githubusercontent.com/25864937/135115606-ad2123d6-2fa3-4901-8974-0635a7a51752.png">
-<h4><style color = "green"> The green APIs are all you need to train a model in AugmentationLab. </style></h4>
+<h4 style color = "green"> The green APIs are all you need to train a model in AugmentationLab. </h4>
 
 <h4> Datasets </h4>
     <ul>
