@@ -41,7 +41,7 @@ def build_aug_dicts(aug_list, aug_name_list):
   
 def save_results(report_list, filename):
   with open(filename + '.csv', mode='w') as data_file:
-  data_writer = csv.writer(data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    data_writer = csv.writer(data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
   for row in report_list:
     data_writer.writerow(row)
 
