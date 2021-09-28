@@ -7,10 +7,10 @@ Connor Shorten and Tagh M. Khoshgoftaar. In ICTAI 2021.
 <h4> High-Level API Overview 🧰 </h4>
 AugmentationLab is a collection of tools to test ideas in Data Augmentation.<br />
 <img width="558" alt="AugmentationLab-API" src="https://user-images.githubusercontent.com/25864937/135115606-ad2123d6-2fa3-4901-8974-0635a7a51752.png">
-<h6> The green API boxes are all you need to train a model in AugmentationLab. </h6>
-<h6> You can pass any pre-trained model into the Evaluation API for testing </h6>
-<h6> You can also change the augmentations used for Evaluation and the Training Checkpoints </h6>
-<h6> Under the hood the Training Strategies are implemented with custom data loaders and loss classes. </h6>
+<h6> ➡️ The green API boxes are all you need to train a model in AugmentationLab. </h6>
+<h6> ➡️ You can pass any pre-trained model into the Evaluation API for testing </h6>
+<h6> ➡️ You can also change the augmentations used for Evaluation and the Training Checkpoints </h6>
+<h6> ➡️ Under the hood the Training Strategies are implemented with custom data loaders and loss classes. </h6>
 
 <h4> Datasets </h4>
     <ul>
