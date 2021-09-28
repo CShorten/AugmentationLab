@@ -11,24 +11,7 @@ def create_results_header(aug_name_list, training_strategy):
   # might also want to see the performance on the augmented train sets
   # maybe also include the local changes between evaluations in the report file
   return header_list
- 
-def evalutation(aug_list, aug_name, AugSwitch=False, **last_step_array):
-  evaluation_step_results = []
-  if (AugSwitch == True):
-    difference_array = [0] * len(aug_list)
-    new_last_step_array = [0] * len(aug_list)
-  for i in range(len(aug_list)):
-    augmented_data = aug_list[i](images=x_test)
-    evaluation_result = model.evaluate(augmented_data, y_test, verbose=1)[1] # check on verbose parameter for silent mode with this
-    print("Evaluation on " + str(aug_name[i]) + ": " + str(evaluation_result))
-    evaluation_step_results.append(evaluation_result)
-    if (AugSwitch == True):
-      difference_array[i] = abs(last_step_array[i] - evaluation_result)
-      new_last_step_array[i] = evaluation_result
-  if (AugSwitch == True):
-    return difference_array, new_last_step_array, evaluation_step_results
-  else:
-    return evaluation_step_results
+
  
 def build_aug_dicts(aug_list, aug_name_list):
   aug_dict = {}
@@ -81,22 +64,4 @@ def fixed_switching(aug_list, aug_name_list, outer_steps, inner_steps):
       augmented_data = aug(images=x_train)
     report.append(evaluation(aug_list, aug_name_list))
   save_results(report, "FixedSwitching.csv")
-  print("Finished Training")
-                    
-def AugSwitch(aug_list, aug_name_list, outer_steps, inner_steps):
-  report = []
-  last_step_array = [0] * len(aug_list)
-  difference_array = [0] * len(aug_list)
-  key = np.argmax(difference_array)
-  for i in range(outer_steps):
-    last_step_accuracy_array, difference_array, report_update = evaluation(aug_list, aug_name_list,
-                                                                     AugSwitch=True, last_step_array, difference_array)
-    report.append(report_update)
-    key = np.argmax(difference_array)
-    for j in range(inner_steps):
-      augmented_data = aug(images=x_train)
-      print("===== Inner Step: " + str(j) + " =====")
-      model.fit(augmented_data, y_train, batch_size=256, epochs=1)
-    
-  save_results(report, "AugSwitch-"+str(outer_steps)+"-"+str(inner_steps)+".csv")
-  print("Finished Training")
+  print("Finished Training")                   
