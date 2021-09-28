@@ -19,15 +19,13 @@ AugmentationLab is a collection of tools to test ideas in Data Augmentation.<br 
         <li> In Progress: DomainNet </li>
     </ul>
 <h4> Models </h4>
-  <ul> Architectures
+<p> The following architectures are available with an optional argument to use separate heads for each Augmentation / Grouping of Augmentations </p>
+    <ul>
       <li> ResNet50 </li>
       <li> ResNet152V2 </li>
       <li> Vision Transformer </li>
       <li> Perceiver </li>
-  </ul>
-  <ul> Multi-Task Learning
-      <li> Separate Heads for each Augmentation/Groupings of Augmentaionts </li>
-  </ul>
+    </ul>
 <h4> Training Strategies </h4>
   <ul>
     <li> Standard Augmentation Training </li>
