@@ -13,3 +13,4 @@ AugmentationLab is a collection of tools to test ideas in Data Augmentation.<br 
   <li> Training Strategies </li>
   <li> Evaluation </li>
 </ul>
+<img width="558" alt="AugmentationLab-API" src="https://user-images.githubusercontent.com/25864937/135115606-ad2123d6-2fa3-4901-8974-0635a7a51752.png">
