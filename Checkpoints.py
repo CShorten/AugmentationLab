@@ -155,7 +155,7 @@ def get_groupings_with_subsets(model, model_init_path,
     new_performance_matrix_row = []
     new_difference_matrix_row = []
     model.load_weights(model_init_path)
-    training_subset = training_set_indexing[i]
+    training_subset = train_set_indexing[i]
     print("===== " + str(aug_name_list[i]) + " =====")
     augmented_images = aug(images=training_subset[0])
     model.fit(augmented_images, training_subest[1], batch_size=256, epochs=1)
@@ -163,7 +163,7 @@ def get_groupings_with_subsets(model, model_init_path,
     new_performance_file_row.append(aug_name_list[i])
     new_difference_file_row.append(aug_name_list[i]) # offset for visualization
     for i, test_aug in enumerate(training_augs):
-      test_subset = testing_set_indexing[i]
+      test_subset = test_set_indexing[i]
       aug_test = test_aug(images=test_subset[0])
       result = model.evaluate(aug_test, test_subset[1])[1]
       difference = result - original_accuracies[i]
