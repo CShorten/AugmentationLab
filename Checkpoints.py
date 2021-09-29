@@ -115,7 +115,7 @@ def get_groupings_with_subsets(model, model_init_path,
     6: (x_train[30_001:35_000], y_train[30_001:35_000]),
     7: (x_train[35_001:40_000], y_train[35_001:40_000]),
     8: (x_train[40_001:45_000], y_train[40_001:45_000]),
-    9: (x_train[45_001:50_000], y_train[45_001:50_000])
+    9: (x_train[45_001:49_999], y_train[45_001:49_999])
   }
   test_set_indexing = {
     0: x_test[0:1_000], y_test[0:1_000],
@@ -127,7 +127,7 @@ def get_groupings_with_subsets(model, model_init_path,
     6: x_test[6_001:7_000], y_test[6_001:7_000]),
     7: x_test[7_001:8_000], y_test[7_001:8_000]),
     8: x_test[8_001:9_000], y_test[8_001:9_000]),
-    9: x_test[9_001:10_000], y_test[9_001:10_000])
+    9: x_test[9_001:9_999], y_test[9_001:9_999])
   }
   performance_file = []
   difference_file = []
