@@ -29,7 +29,7 @@ def few_shot_training(model, model_init_path,
     train_index = list(train_index)
     for j in range(outer_epochs):
       print("Training...")
-      for jj in range(inner_epochs)
+      for jj in range(inner_epochs):
         for k in range(len(train_index)):
           aug = aug_list[k]
           augmented_x = aug(images=x_train)
