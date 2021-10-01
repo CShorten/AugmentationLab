@@ -12,10 +12,12 @@ def standard_training(model, meta_steps,
       augmented_test_data = test_aug(images=x_test)
       model.evaluate(augmented_test_data, y_test)
       
-def few_shot_training(model, outer_epochs, inner_epochs,
+def few_shot_training(model, model_init_path,
+                      outer_epochs, inner_epochs,
                       aug_list, aug_names,
                       x_train,y_train,x_test,y_test):
   for i in range(len(aug_list)):
+    model.load_weights(model_init_path)
     train_index = set(range(len(aug_list)))
     held_out = i, (i+1)%len(aug_list)
     held_out_aug_1, held_out_aug_2 = aug_list[held_out[0]], aug_list[held_out[1]]
