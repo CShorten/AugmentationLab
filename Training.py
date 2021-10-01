@@ -33,13 +33,19 @@ def few_shot_training(model, model_init_path,
           aug = aug_list[k]
           augmented_x = aug(images=x_train)
           model.fit(augmented_x, y_train, batch_size=256, epochs=1)
-      print("Evaluating...")
+      print("Zero-Shot Evaluation...")
       print(aug_names[held_out])
       test_aug_1 = aug_list[held_out](images=x_test)
       model.evaluate(test_aug_1, y_test)
       print(negative_aug_name)
       test_aug_2 = negative_aug(images=x_test)
       model.evaluate(test_aug_2, y_test)
-                      
+      print("Training Augs Evaluation...")
+      for i in range(len(train_index)):
+        print(aug_names[train_index[i]])
+        aug_test = aug_list[train_index[i]]
+        aug_images = aug_test(images=x_test)
+        model.evaluate(aug_images, y_test)
+      
       
                       
