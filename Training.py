@@ -35,7 +35,7 @@ def few_shot_training(model, model_init_path,
           model.fit(augmented_x, y_train, batch_size=256, epochs=1)
       print("Evaluating...")
       print(aug_names[held_out])
-      test_aug_1 = held_out(images=x_test)
+      test_aug_1 = aug_list[held_out](images=x_test)
       model.evaluate(test_aug_1, y_test)
       print(negative_aug_name)
       test_aug_2 = negative_aug(images=x_test)
