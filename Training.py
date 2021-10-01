@@ -40,7 +40,7 @@ def few_shot_training(model, model_init_path,
       model.evaluate(test_aug_1, y_test)
       print(aug_names[held_out[1]])
       test_aug_2 = held_out_aug_2(images=x_test)
-      model.evaluate(test_aug_2)
+      model.evaluate(test_aug_2, y_test)
                       
       
                       
