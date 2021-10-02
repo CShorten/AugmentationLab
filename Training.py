@@ -1,4 +1,4 @@
-def standard_training(model, meta_steps, inner_steps 
+def standard_training(model, meta_steps, inner_steps, 
                       training_aug_list, testing_aug_list, testing_aug_names, 
                       x_train, y_train, x_test, y_test):
   for i in range(meta_steps):
