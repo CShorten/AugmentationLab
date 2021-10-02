@@ -1,14 +1,15 @@
-def standard_training(model, meta_steps, 
+def standard_training(model, meta_steps, inner_steps 
                       training_aug_list, testing_aug_list, testing_aug_names, 
                       x_train, y_train, x_test, y_test):
   for i in range(meta_steps):
-    print("===== Training Step: " + str(i*10) + " =====")
-    for aug in training_aug_list:
-      augmented_data = aug(images=x_train)
-      model.fit(augmented_data, y_train, batch_size=256, epochs=1)
-    print("===== Evaluation Step: " + str((i+1)*10) + " =====")
-    for i, test_aug in enumerate(testing_aug_list):
-      print("====== "+ str(testing_aug_names[i]) + " Test ======")
+    print("===== Training Step: " + str(i*inner_steps) + " =====")
+    for j in range(inner_steps):
+      for aug in training_aug_list:
+        augmented_data = aug(images=x_train)
+        model.fit(augmented_data, y_train, batch_size=256, epochs=1)
+    print("===== Evaluation Step: " + str((i+1)*inner_steps) + " =====")
+    for k, test_aug in enumerate(testing_aug_list):
+      print("====== "+ str(testing_aug_names[k]) + " Test ======")
       augmented_test_data = test_aug(images=x_test)
       model.evaluate(augmented_test_data, y_test)
       
