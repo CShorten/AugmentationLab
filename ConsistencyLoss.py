@@ -37,7 +37,7 @@ class Consistency_Model_with_RandAug(keras.Model):
   def __init__(self, model, consistency_weight):
     super(Consistency_Model_with_RandAug, self).__init__()
     self.model = model
-    self.consistency_weights = consistency_weight
+    self.consistency_weight = consistency_weight
 
   def train_step(self, data):
     [org_data, aug_pair, randaug_pair], y = data
