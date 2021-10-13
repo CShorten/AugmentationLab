@@ -28,6 +28,40 @@ class Consistency_Model(keras.Model):
   def call(self, data):
     return self.model(data)
   
+  
+'''
+A more general class design is to just have the two augs as arguments
+i.e. randaug, rotate or randaug, randaug ... rotate, rotate ... crop, rotate ...
+'''
+class Consistency_Model_with_RandAug(keras.Model):
+  def __init__(self, model, consistency_weight):
+    super(Consistency_Model, self).__init__()
+    self.model = model
+    self.consistency_weights = consistency_weight
+
+  def train_step(self, data):
+    [org_data, aug_pair, randaug_pair], y = data
+
+    with tf.GradientTape() as tape:
+      org_y_pred = self(org_data, training=True) # could turn off training here BYOL style
+      aug_pred = self(aug_pair, training=True) # could turn off training here BYOL style
+      randaug_pred = self(randaug_pair, training=True) # could turn off training here BYOL style
+
+      loss = self.compiled_loss(org_y_pred, aug_pred, regularization_losses=self.losses)
+      # maybe want to re-weight these
+      loss += self.consistency_weight * self.compiled_loss(randaug_pred, y, regularization_losses=self.losses)
+
+    trainable_vars = self.trainable_variables
+    gradients = tape.gradient(loss, trainable_vars)
+    self.optimizer.apply_gradients(zip(gradients, trainable_vars))
+
+    self.compiled_metrics.update_state(y, y_pred)
+    return {m.name: m.result() for m in self.metrics}
+  
+  def call(self, data):
+    return self.model(data)
+  
+# Not sure how useful this wrapper is...
 def consistency_loss_model(x_train):
   model = standard_model(x_train)
   return Consistency_Model(model)
