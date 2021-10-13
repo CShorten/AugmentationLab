@@ -55,7 +55,7 @@ class Consistency_Model_with_RandAug(keras.Model):
     gradients = tape.gradient(loss, trainable_vars)
     self.optimizer.apply_gradients(zip(gradients, trainable_vars))
 
-    self.compiled_metrics.update_state(y, y_pred)
+    self.compiled_metrics.update_state(y, randaug_pred)
     return {m.name: m.result() for m in self.metrics}
   
   def call(self, data):
