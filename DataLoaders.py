@@ -32,6 +32,7 @@ class org_aug_randaug_triple_loader(tf.keras.utils.Sequence):
     self.x, self.y = x, y
     self.aug = aug
     self.batch_size = batch_size
+    self.shuffle = True
   
   def __getitem__(self, idx):
     batch_x = self.x[idx * self.batch_size: (idx + 1) * self.batch_size]
@@ -39,3 +40,9 @@ class org_aug_randaug_triple_loader(tf.keras.utils.Sequence):
     randaug_batch = randaug(images=batch_x)
     paired_aug_batch = aug(images=batch_x)
     return batch_x, paired_aug_batch, randaug_batch, batch_y
+ 
+  def on_epoch_end(self):
+    # Updates indexes after each epoch
+    self.indexes = np.arange(len(self.list_IDs))
+    if self.shuffle == True:
+      np.random.shuffle(self.indexes)
