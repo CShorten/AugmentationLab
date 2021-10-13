@@ -35,7 +35,7 @@ i.e. randaug, rotate or randaug, randaug ... rotate, rotate ... crop, rotate ...
 '''
 class Consistency_Model_with_RandAug(keras.Model):
   def __init__(self, model, consistency_weight):
-    super(Consistency_Model, self).__init__()
+    super(Consistency_Model_with_RandAug, self).__init__()
     self.model = model
     self.consistency_weights = consistency_weight
 
