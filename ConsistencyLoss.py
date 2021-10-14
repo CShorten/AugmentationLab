@@ -47,7 +47,7 @@ class Consistency_Model_with_RandAug(keras.Model):
       aug_pred = self(aug_pair, training=True) # could turn off training here BYOL style
       randaug_pred = self(randaug_pair, training=True) # could turn off training here BYOL style
 
-      loss = self.compiled_loss(y, randaug_pred, regularization_losses=self.losses
+      loss = self.compiled_loss(y, randaug_pred, regularization_losses=self.losses)
       loss += self.consistency_weight * self.compiled_loss(org_y_pred, aug_pred, regularization_losses=self.losses)
 
     trainable_vars = self.trainable_variables
