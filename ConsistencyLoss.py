@@ -43,9 +43,9 @@ class Consistency_Model_with_RandAug(keras.Model):
     [org_data, aug_pair, randaug_pair], y = data
 
     with tf.GradientTape() as tape:
+      randaug_pred = self(randaug_pair, training=True) # could turn off training here BYOL style
       org_y_pred = self(org_data, training=True) # could turn off training here BYOL style
       aug_pred = self(aug_pair, training=True) # could turn off training here BYOL style
-      randaug_pred = self(randaug_pair, training=True) # could turn off training here BYOL style
 
       loss = self.compiled_loss(y, randaug_pred, regularization_losses=self.losses)
       loss += self.consistency_weight * self.compiled_loss(org_y_pred, aug_pred, regularization_losses=self.losses)
