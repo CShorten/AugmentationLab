@@ -7,6 +7,14 @@ def distribution_analysis(dist1, dist2):
   print("Average Distance: " + get_average_vec_distance(dist1,dist2))
   print("=======================")
 
+def contrast_distances(org_img2vec, aug_img2vec, same_class_as_org_img2vec):
+  print("===================================")
+  print("Original versus Augmented Distance")
+  print(l1_vec_distance(org_img2vec, aug_img2vec))
+  print("Original versus Same Class Original")
+  print(l1_vec_distance(org_img2vec, same_class_as_org_img2vec))
+  print("===================================")
+  
 # Workers
 def l1_vec_distance(vec1, vec2):
   sum = 0
