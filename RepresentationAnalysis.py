@@ -16,6 +16,12 @@ def contrast_distances(org_img2vec, aug_img2vec, same_class_as_org_img2vec):
   print("===================================")
   
 # Workers
+def get_vectors(model, dataset, data_dim):
+  vector_reps = []
+  for instance in dataset:
+    vector_reps.append(model.predict(instance).reshape(1, data_dim[0], data_dim[1], data_dim[2]))
+  return vector_reps
+  
 def l1_vec_distance(vec1, vec2):
   sum = 0
   for i in range(len(vec1)):
