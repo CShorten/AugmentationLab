@@ -2,44 +2,15 @@ import keras
 import tensorflow as tf
 
 class Consistency_Model(keras.Model):
-  def __init__(self, model):
-    super(Consistency_Model, self).__init__()
-    self.model = model
-
-  def train_step(self, data):
-    [org_data, aug_pair], y = data
-
-    with tf.GradientTape() as tape:
-      y_pred = self(org_data, training=True)
-
-      aug_pred = self(aug_pair, training=True)
-
-      loss = self.compiled_loss(y, y_pred, regularization_losses=self.losses)
-      # maybe want to re-weight these
-      loss += self.compiled_loss(y_pred, aug_pred, regularization_losses=self.losses)
-
-    trainable_vars = self.trainable_variables
-    gradients = tape.gradient(loss, trainable_vars)
-    self.optimizer.apply_gradients(zip(gradients, trainable_vars))
-
-    self.compiled_metrics.update_state(y, y_pred)
-    return {m.name: m.result() for m in self.metrics}
-  
-  def call(self, data):
-    return self.model(data)
-  
-  
-'''
-A more general class design is to just have the two augs as arguments
-i.e. randaug, rotate or randaug, randaug ... rotate, rotate ... crop, rotate ...
-'''
-class Consistency_Model_with_RandAug(keras.Model):
-  def __init__(self, model, consistency_weight, org_matching, aug_grads):
+  def __init__(self, model, consistency_weight, org_matching, aug_grads,
+              intermediate_layer_matching=False, intermediate_layer_models=None):
     super(Consistency_Model_with_RandAug, self).__init__()
     self.model = model
     self.consistency_weight = consistency_weight
     self.org_matching = org_matching
     self.aug_grads = aug_grads
+    self.intermediate_layer_matching = intermediate_layer_matching
+    self.intermediate_layer_models = intermediate_layer_models
 
   def train_step(self, data):
     # figure out how to pass in a list of aug_xs
@@ -51,14 +22,25 @@ class Consistency_Model_with_RandAug(keras.Model):
       loss = self.compiled_loss(y, randaug_pred, regularization_losses=self.losses)
       
       # Consistency loss
-      if self.org_matching==True:
-        matching_pred = self(org_x, training=True)
-      else:
-        matching_pred = randaug_pred
-      
-      # figure out how to loop through aug_xs
-      aug_pred = self(aug_x, training=self.aug_grads)
-      loss += self.consistency_weight * self.compiled_loss(matching_pred, aug_pred, regularization_losses=self.losses) # todo add fine-grained loss weightings
+      if (self.intermediate_layer_matching == True): # Vector Representation Consistency
+        if (self.org_matching == True):
+          matching_data = org_x
+        else:
+          matching_data = randaug_x
+          
+        for i in range(len(self.intermediate_layer_models)):
+          aug_pred = self.intermediate_layer_models[i](aug_x, training=self.aug_grads)
+          matching_pred = self.intermediate_layer_models[i](matching_data, training=True)
+          loss += self.compiled_loss(matching_pred, aug_pred, regularization_losses=self.losses)
+          
+      else: # Logit Consistency
+        if self.org_matching==True:
+          matching_pred = self(org_x, training=True)
+        else:
+          matching_pred = randaug_pred
+     
+        aug_pred = self(aug_x, training=self.aug_grads)
+        loss += self.consistency_weight * self.compiled_loss(matching_pred, aug_pred, regularization_losses=self.losses) # todo add fine-grained loss weightings
 
     trainable_vars = self.trainable_variables
     gradients = tape.gradient(loss, trainable_vars)
