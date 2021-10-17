@@ -42,7 +42,8 @@ class Consistency_Model_with_RandAug(keras.Model):
     self.aug_grads = aug_grads
 
   def train_step(self, data):
-    [randaug_x, org_x, aug_xs], y = data # change this so you can pass in a variable number of augmented xs
+    # figure out how to pass in a list of aug_xs
+    [randaug_x, org_x, aug_x], y = data # change this so you can pass in a variable number of augmented xs
 
     with tf.GradientTape() as tape:
       # Cross Entropy loss between RandAug Prediction and Ground Truth Y Label
@@ -55,9 +56,9 @@ class Consistency_Model_with_RandAug(keras.Model):
       else:
         matching_pred = randaug_pred
       
-      for aug_x in aug_xs:
-        aug_pred = self(aug_x, training=self.aug_grads)
-        loss += self.consistency_weight * self.compiled_loss(org_y_pred, aug_pred, regularization_losses=self.losses) # todo add fine-grained loss weightings
+      # figure out how to loop through aug_xs
+      aug_pred = self(aug_x, training=self.aug_grads)
+      loss += self.consistency_weight * self.compiled_loss(org_y_pred, aug_pred, regularization_losses=self.losses) # todo add fine-grained loss weightings
 
     trainable_vars = self.trainable_variables
     gradients = tape.gradient(loss, trainable_vars)
