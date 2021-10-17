@@ -50,7 +50,7 @@ class Consistency_Model_with_RandAug(keras.Model):
       loss = self.compiled_loss(y, randaug_pred, regularization_losses=self.losses)
       
       # Consistency loss
-      if org_matching==True:
+      if self.org_matching==True:
         matching_pred = self(org_x, training=True)
       else:
         matching_pred = randaug_pred
