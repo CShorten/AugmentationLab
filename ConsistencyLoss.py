@@ -58,7 +58,7 @@ class Consistency_Model_with_RandAug(keras.Model):
       
       # figure out how to loop through aug_xs
       aug_pred = self(aug_x, training=self.aug_grads)
-      loss += self.consistency_weight * self.compiled_loss(org_y_pred, aug_pred, regularization_losses=self.losses) # todo add fine-grained loss weightings
+      loss += self.consistency_weight * self.compiled_loss(matching_pred, aug_pred, regularization_losses=self.losses) # todo add fine-grained loss weightings
 
     trainable_vars = self.trainable_variables
     gradients = tape.gradient(loss, trainable_vars)
