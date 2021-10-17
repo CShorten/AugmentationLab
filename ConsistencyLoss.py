@@ -34,21 +34,30 @@ A more general class design is to just have the two augs as arguments
 i.e. randaug, rotate or randaug, randaug ... rotate, rotate ... crop, rotate ...
 '''
 class Consistency_Model_with_RandAug(keras.Model):
-  def __init__(self, model, consistency_weight):
+  def __init__(self, model, consistency_weight, org_matching, stop_aug_grads):
     super(Consistency_Model_with_RandAug, self).__init__()
     self.model = model
     self.consistency_weight = consistency_weight
+    self.org_matching = org_matching
+    self.stop_aug_grads = stop_aug_grads
 
   def train_step(self, data):
-    [org_data, aug_pair, randaug_pair], y = data
+    [randaug_x, org_x, [aug_xs]], y = data # change this so you can pass in a variable number of augmented xs
 
     with tf.GradientTape() as tape:
-      randaug_pred = self(randaug_pair, training=True) # could turn off training here BYOL style
-      org_y_pred = self(org_data, training=True) # could turn off training here BYOL style
-      aug_pred = self(aug_pair, training=False) # could turn off training here BYOL style
-
+      # Cross Entropy loss between RandAug Prediction and Ground Truth Y Label
+      randaug_pred = self(randaug_x, training=True)
       loss = self.compiled_loss(y, randaug_pred, regularization_losses=self.losses)
-      loss += self.consistency_weight * self.compiled_loss(org_y_pred, aug_pred, regularization_losses=self.losses)
+      
+      # Consistency loss
+      if org_matching==True:
+        matching_pred = self(org_x, training=True)
+      else:
+        matching_pred = randaug_pred
+      
+      for aug_x in aug_xs:
+        aug_pred = self(aug_x, training=self.stop_aug_grads)
+        loss += self.consistency_weight * self.compiled_loss(org_y_pred, aug_pred, regularization_losses=self.losses) # todo add fine-grained loss weightings
 
     trainable_vars = self.trainable_variables
     gradients = tape.gradient(loss, trainable_vars)
