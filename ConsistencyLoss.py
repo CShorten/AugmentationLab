@@ -42,7 +42,7 @@ class Consistency_Model_with_RandAug(keras.Model):
     self.aug_grads = aug_grads
 
   def train_step(self, data):
-    [randaug_x, org_x, [aug_xs]], y = data # change this so you can pass in a variable number of augmented xs
+    [randaug_x, org_x, aug_xs], y = data # change this so you can pass in a variable number of augmented xs
 
     with tf.GradientTape() as tape:
       # Cross Entropy loss between RandAug Prediction and Ground Truth Y Label
