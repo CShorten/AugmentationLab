@@ -34,12 +34,12 @@ A more general class design is to just have the two augs as arguments
 i.e. randaug, rotate or randaug, randaug ... rotate, rotate ... crop, rotate ...
 '''
 class Consistency_Model_with_RandAug(keras.Model):
-  def __init__(self, model, consistency_weight, org_matching, stop_aug_grads):
+  def __init__(self, model, consistency_weight, org_matching, aug_grads):
     super(Consistency_Model_with_RandAug, self).__init__()
     self.model = model
     self.consistency_weight = consistency_weight
     self.org_matching = org_matching
-    self.stop_aug_grads = stop_aug_grads
+    self.aug_grads = aug_grads
 
   def train_step(self, data):
     [randaug_x, org_x, [aug_xs]], y = data # change this so you can pass in a variable number of augmented xs
@@ -56,7 +56,7 @@ class Consistency_Model_with_RandAug(keras.Model):
         matching_pred = randaug_pred
       
       for aug_x in aug_xs:
-        aug_pred = self(aug_x, training=self.stop_aug_grads)
+        aug_pred = self(aug_x, training=self.aug_grads)
         loss += self.consistency_weight * self.compiled_loss(org_y_pred, aug_pred, regularization_losses=self.losses) # todo add fine-grained loss weightings
 
     trainable_vars = self.trainable_variables
