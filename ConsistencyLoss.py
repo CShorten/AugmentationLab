@@ -4,7 +4,7 @@ import tensorflow as tf
 class Consistency_Model(keras.Model):
   def __init__(self, model, consistency_weight, org_matching, aug_grads,
               intermediate_layer_matching=False, intermediate_layer_models=None):
-    super(Consistency_Model_with_RandAug, self).__init__()
+    super(Consistency_Model, self).__init__()
     self.model = model
     self.consistency_weight = consistency_weight
     self.org_matching = org_matching
