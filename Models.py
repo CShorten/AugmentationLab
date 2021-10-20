@@ -3,9 +3,9 @@ import numpy as np
 from tensorflow.keras import layers
 import tensorflow as tf
 
-from tensorflow.keras.applications import ResNet152V2, ResNet50
+from tensorflow.keras.applications import ResNet152V2, ResNet50, EfficientNetB7
 
-def standard_model(x_train, input_shape=(32,32,3)):
+def standard_ResNet152V2_model(x_train, input_shape=(32,32,3)):
   normalization_layer = keras.Sequential(
     [
       layers.experimental.preprocessing.Normalization(),
@@ -16,6 +16,24 @@ def standard_model(x_train, input_shape=(32,32,3)):
   inputs = layers.Input(shape=input_shape)
   normalized = normalization_layer(inputs)
   resnet_outputs = ResNet152V2(include_top=False, weights=None)(normalized)
+  flattened = layers.Flatten()(resnet_outputs)
+  dense_1 = layers.Dense(512, activation="relu", name="dense1")(flattened)
+  dense_2 = layers.Dense(512, activation="relu", name="dense2")(dense_1)
+  outputs = layers.Dense(10, activation="softmax", name="output")(dense_2)
+  model = keras.Model(inputs=inputs, outputs=outputs)
+  return model
+
+def standard_EfficientNetB7_model(x_train, input_shape=(32,32,3)):
+  normalization_layer = keras.Sequential(
+    [
+      layers.experimental.preprocessing.Normalization(),
+    ],
+    name="normalization",
+  )
+  normalization_layer.layers[0].adapt(x_train)
+  inputs = layers.Input(shape=input_shape)
+  normalized = normalization_layer(inputs)
+  resnet_outputs = EfficientNetB7(include_top=False, weights=None)(normalized)
   flattened = layers.Flatten()(resnet_outputs)
   dense_1 = layers.Dense(512, activation="relu", name="dense1")(flattened)
   dense_2 = layers.Dense(512, activation="relu", name="dense2")(dense_1)
