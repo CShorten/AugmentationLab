@@ -84,7 +84,7 @@ def evaluate_consistency_model(epoch, model, x_train, y_train, x_test, y_test,
     unaugmented_preds = model.predict(x_test)
     for i, logit_set in enumerate(logit_sets):
       unaugmented_dist_to_aug = distribution_analysis(unaugmented_preds, logit_set)
-      print("Distance between original and " + str(consistency_aug_names[i]) + " = " + str(unaugmented_dist_to_aug))
+      print("Distance between Original and " + str(consistency_aug_names[i]) + " = " + str(unaugmented_dist_to_aug))
       results.append(unaugmented_dist_to_aug)
       
     for i, logit_set_1 in enumerate(logit_sets):
