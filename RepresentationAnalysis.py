@@ -2,7 +2,7 @@
 
 # High-Level Wrappers
 def distribution_analysis(dist1, dist2):
-  print(get_average_vec_distance(dist1,dist2))
+  return(get_average_vec_distance(dist1,dist2))
 
 def get_average_vec_distance(dist1,dist2):
   # just defaulting to l1 for now
