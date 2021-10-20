@@ -92,7 +92,7 @@ def evaluate_consistency_model(epoch, model, x_train, y_train, x_test, y_test,
           aug_dist = distribution_analysis(logit_set_1, logit_set_2)
           print("Distance between " + str(consistency_aug_names[i]) + " and " + str(consistency_aug_names[j]) + " = " + str(aug_dist))
           results.append(aug_dist)
-    
+    print("\n")
     return results
    
   
