@@ -33,6 +33,7 @@ def evaluate_consistency_model(epoch, model, x_train, y_train, x_test, y_test,
   results.append(epoch)
   print("\n")
   print("===== Evaluating =====")
+  print("===== Step: " + str(epoch) + "   =====")
   print("\n")
   print("==== Original Train and Test Accuracies =====")
   org_train_acc = model.evaluate(x_train, y_train, verbose=0)[1]
