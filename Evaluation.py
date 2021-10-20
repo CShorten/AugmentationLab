@@ -25,7 +25,7 @@ def create_consistency_results_header(classification_aug_names, consistency_aug_
   
   return header
  
-def evaluate_consistency_model(epoch, model, x_train, y_train, x_test, y_test,
+def evaluate_model_consistency(epoch, model, x_train, y_train, x_test, y_test,
                                classification_augs, classification_aug_names,
                                consistency_augs, consistency_aug_names,
                                vector_consistency=False, vector_model=None):
