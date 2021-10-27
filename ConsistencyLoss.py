@@ -3,14 +3,14 @@ import tensorflow as tf
 
 class Consistency_Model(keras.Model):
   def __init__(self, model, consistency_weight, org_matching, aug_grads,
-              intermediate_layer_matching=False, intermediate_layer_models=None):
+              intermediate_layer_matching=False, intermediate_layer_model=None):
     super(Consistency_Model, self).__init__()
     self.model = model
     self.consistency_weight = consistency_weight
     self.org_matching = org_matching
     self.aug_grads = aug_grads
     self.intermediate_layer_matching = intermediate_layer_matching
-    self.intermediate_layer_models = intermediate_layer_models
+    self.intermediate_layer_model = intermediate_layer_model
 
   def train_step(self, data):
     # figure out how to pass in a list of aug_xs
@@ -28,10 +28,9 @@ class Consistency_Model(keras.Model):
         else:
           matching_data = randaug_x
           
-        for i in range(len(self.intermediate_layer_models)):
-          aug_pred = self.intermediate_layer_models[i](aug_x, training=self.aug_grads)
-          matching_pred = self.intermediate_layer_models[i](matching_data, training=True)
-          loss += self.compiled_loss(matching_pred, aug_pred, regularization_losses=self.losses)
+        aug_pred = self.intermediate_layer_model(aug_x, training=self.aug_grads)
+        matching_pred = self.intermediate_layer_model(matching_data, training=True)
+        loss += self.consistency_weight * self.compiled_loss(matching_pred, aug_pred, regularization_losses=self.losses)
           
       else: # Logit Consistency
         if self.org_matching==True:
