@@ -16,8 +16,8 @@ class Consistency_Model(keras.Model):
     self.entropy_weight = entropy_weight
     
   def custom_entropy_loss(self, y_true, y_pred):
-    loss = y_pred[tf.argmax(y_pred)]
-    return tf.convert_to_tensor(loss)
+    loss = tf.gather(y_pred, tf.argmax(y_pred))
+    return loss
 
   def train_step(self, data):
     # figure out how to pass in a list of aug_xs
