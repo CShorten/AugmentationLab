@@ -4,7 +4,7 @@ import tensorflow as tf
 class Consistency_Model(keras.Model):
   def __init__(self, model, consistency_weight, org_matching, aug_grads,
               intermediate_layer_matching=False, intermediate_layer_model=None,
-              entropy_loss=False):
+              entropy_loss=False, entropy_weight=None):
     super(Consistency_Model, self).__init__()
     self.model = model
     self.consistency_weight = consistency_weight
@@ -13,6 +13,7 @@ class Consistency_Model(keras.Model):
     self.intermediate_layer_matching = intermediate_layer_matching
     self.intermediate_layer_model = intermediate_layer_model
     self.entropy_loss = entropy_loss
+    self.entropy_weight = entropy_weight
     
   def custom_entropy_loss(y_true, y_pred):
     loss = y_pred[tf.argmax(y_pred)]
