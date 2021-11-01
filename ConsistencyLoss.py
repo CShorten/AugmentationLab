@@ -51,7 +51,7 @@ class Consistency_Model(keras.Model):
       # Entropy Loss
       if self.entropy_loss == True:
         entropy_loss_value = self.custom_entropy_loss(y, aug_pred)
-        loss += self.entropy_weight * entropy_loss_value 
+        loss /= self.entropy_weight * entropy_loss_value 
         
     trainable_vars = self.trainable_variables
     gradients = tape.gradient(loss, trainable_vars)
