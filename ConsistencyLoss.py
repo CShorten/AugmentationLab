@@ -12,6 +12,7 @@ class Consistency_Model(keras.Model):
     self.aug_grads = aug_grads
     self.intermediate_layer_matching = intermediate_layer_matching
     self.intermediate_layer_model = intermediate_layer_model
+    self.entropy_loss = entropy_loss
     
   def custom_entropy_loss(y_true, y_pred):
     loss = y_pred[tf.argmax(y_pred)]
