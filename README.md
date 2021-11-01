@@ -15,6 +15,7 @@ AugmentationLab is a collection of tools to test ideas in Data Augmentation.<br 
 <h4> Datasets </h4>
     <ul>
         <li> CIFAR-10 </li>
+        <li> In Progress: Wikipedia Text </li>
         <li> In Progress: WILDS </li>
         <li> In Progress: DomainNet </li>
     </ul>
