@@ -3,7 +3,8 @@ import tensorflow as tf
 
 class Consistency_Model(keras.Model):
   def __init__(self, model, consistency_weight, org_matching, aug_grads,
-              intermediate_layer_matching=False, intermediate_layer_model=None):
+              intermediate_layer_matching=False, intermediate_layer_model=None,
+              entropy_loss=False):
     super(Consistency_Model, self).__init__()
     self.model = model
     self.consistency_weight = consistency_weight
@@ -11,6 +12,10 @@ class Consistency_Model(keras.Model):
     self.aug_grads = aug_grads
     self.intermediate_layer_matching = intermediate_layer_matching
     self.intermediate_layer_model = intermediate_layer_model
+    
+  def custom_entropy_loss(y_true, y_pred):
+    loss = y_pred[tf.argmax(y_pred)]
+    return tf.convert_to_tensor(loss)
 
   def train_step(self, data):
     # figure out how to pass in a list of aug_xs
@@ -40,7 +45,12 @@ class Consistency_Model(keras.Model):
      
         aug_pred = self(aug_x, training=self.aug_grads)
         loss += self.consistency_weight * self.compiled_loss(matching_pred, aug_pred, regularization_losses=self.losses) # todo add fine-grained loss weightings
-
+ 
+      # Entropy Loss
+      if self.entropy_loss == True:
+        entropy_loss_value = self.custom_entropy_loss(y, aug_pred)
+        loss += self.entropy_weight * entropy_loss_value 
+        
     trainable_vars = self.trainable_variables
     gradients = tape.gradient(loss, trainable_vars)
     self.optimizer.apply_gradients(zip(gradients, trainable_vars))
