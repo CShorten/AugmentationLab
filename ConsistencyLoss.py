@@ -15,7 +15,7 @@ class Consistency_Model(keras.Model):
     self.entropy_loss = entropy_loss
     self.entropy_weight = entropy_weight
     
-  def custom_entropy_loss(y_true, y_pred):
+  def custom_entropy_loss(self, y_true, y_pred):
     loss = y_pred[tf.argmax(y_pred)]
     return tf.convert_to_tensor(loss)
 
