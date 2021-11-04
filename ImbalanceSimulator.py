@@ -7,7 +7,7 @@ def fixed_sampling(imbalance_pct, minority_label, xs, ys):
   minority_count = len(xs) * imbalance_pct
   counter = 0
   
-  for i, y in ys:
+  for i, y in enumerate(ys):
       if counter > minority_count:
         break
       if (np.argmax(y[i]) == minority_label):
