@@ -8,15 +8,15 @@ def fixed_sampling(imbalance_pct, minority_label, xs, ys):
   counter = 0
   
   for i, y in enumerate(ys):
-      if counter < minority_count:
-        if (np.argmax(y) == minority_label):
+      if (np.argmax(y) == minority_label):
+        if counter < minority_count:
           ret_xs.append(xs[i])
           ret_ys.append(y)
           counter += 1
-      
-      ret_xs.append(xs[i])
-      ret_ys.append(y)
-  
+        else: 
+          ret_xs.append(xs[i])
+           ret_ys.append(y)
+            
   return ret_xs, ret_ys
 
 # extension of above to not sample left to right for the imbalance pct
