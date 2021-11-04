@@ -1,11 +1,12 @@
 import numpy as np
 
-def fixed_sampling(imbalance_pct, minority_label, xs, ys):
+def fixed_sampling(imbalance_pct, minority_label, minority_instance_count,
+                   xs, ys):
   ret_xs = []
   ret_ys = []
   
   # using 5000 as a hack, need to calculate the imbalance in the original data for generality!
-  minority_count = 5000 * imbalance_pct
+  minority_count = minority_instance_count * imbalance_pct
   counter = 0
   
   for i, y in enumerate(ys):
