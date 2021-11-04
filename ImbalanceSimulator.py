@@ -13,9 +13,9 @@ def fixed_sampling(imbalance_pct, minority_label, xs, ys):
           ret_xs.append(xs[i])
           ret_ys.append(y)
           counter += 1
-        else: 
-          ret_xs.append(xs[i])
-          ret_ys.append(y)
+      else: 
+        ret_xs.append(xs[i])
+        ret_ys.append(y)
             
   return ret_xs, ret_ys
 
