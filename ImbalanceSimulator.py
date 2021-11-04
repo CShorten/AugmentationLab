@@ -23,3 +23,4 @@ def random_sampling():
 # Automatic Domain Randomizationw rapper of random_sampling
 def automatic_imbalance_randomization():
   # calls the above functions for k steps
+  return 0
