@@ -5,6 +5,9 @@
 # Visualize the Evaluation with a Web Interface
 from RepresentationAnalysis import distribution_analysis
 
+def Robustness_Accuracy(augmentations):
+  # Robustness Accuracy used in AugMax, average of 15 augmented test distributions
+
 def create_consistency_results_header(classification_aug_names, consistency_aug_names):
   header = []
   header.append("Epoch")
@@ -95,6 +98,5 @@ def evaluate_model_consistency(epoch, model, x_train, y_train, x_test, y_test,
           results.append(aug_dist)
     print("\n")
     return results
-   
   
   
