@@ -7,6 +7,7 @@ from RepresentationAnalysis import distribution_analysis
 
 def Robustness_Accuracy(augmentations):
   # Robustness Accuracy used in AugMax, average of 15 augmented test distributions
+  print("Used in AugMax to report robustness")
 
 def create_consistency_results_header(classification_aug_names, consistency_aug_names):
   header = []
