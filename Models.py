@@ -79,8 +79,8 @@ def ResNet50_with_upsampling(x_train, input_shape=(32,32,3)):
   normalized = normalization_layer(inputs)
   resnet_outputs = ResNet50(weights=None, include_top=False, input_shape=(72,72,3))(normalized)
   flattened = layers.Flatten()(resnet_outputs)
-  dense_1 = layers.Dense(512, activation="relu")(flattened)
-  dense_2 = layers.Dense(512, activation="relu")(dense_1)
+  dense_1 = layers.Dense(512, activation="relu", name = "dense1")(flattened)
+  dense_2 = layers.Dense(512, activation="relu", name = "dense2")(dense_1)
   outputs = layers.Dense(10, activation="softmax")(dense_2)
   model = keras.Model(inputs=inputs, outputs=outputs)
   return model
@@ -212,7 +212,11 @@ def create_vit_classifier(x_train):
   representation = layers.Flatten()(representation)
   representation = layers.Dropout(0.5)(representation)
   # Add MLP.
-  features = mlp(representation, hidden_units=mlp_head_units, dropout_rate=0.5)
+  features = layers.Dense(512, activation="relu", name="dense1")(representation)
+  features = layers.Dropout(0.5)(features)
+  # ^ changed from this: 
+  # features = mlp(representation, hidden_units=mlp_head_units, dropout_rate=0.5)
+  
   # Classify outputs.
   logits = layers.Dense(10, activation="softmax")(features)
   # Create the Keras model.
